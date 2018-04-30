@@ -35,6 +35,7 @@ struct tcb_entry {
 	uint32_t delay;					/*!< delay to enter in the run/RT queue */
 	uint32_t rtjobs;				/*!< total RT task jobs executed */
 	uint32_t bgjobs;				/*!< total BE task jobs executed */
+	uint32_t apjobs;				/*!< total AP task jobs executed */
 	uint32_t deadline_misses;			/*!< task realtime deadline misses */
 	uint16_t period;				/*!< task period */
 	uint16_t capacity;				/*!< task capacity */
@@ -51,6 +52,7 @@ struct tcb_entry {
 struct pcb_entry {
 	int32_t (*sched_rt)();				/*!< pointer to the realtime scheduler */
 	int32_t (*sched_be)();				/*!< pointer to the best effort scheduler */
+	int32_t (*sched_ap)();				/*!< pointer to the aperiodic scheduler */
 	uint32_t coop_cswitch;				/*!< cooperative context switches */
 	uint32_t preempt_cswitch;			/*!< preeptive context switches */
 	uint32_t interrupts;				/*!< number of non-masked interrupts */
@@ -71,8 +73,7 @@ uint16_t krnl_schedule;					/*!< scheduler enable / disable flag */
 struct queue *krnl_run_queue;				/*!< pointer to a queue of best effort tasks */
 struct queue *krnl_delay_queue;				/*!< pointer to a queue of delayed tasks */
 struct queue *krnl_rt_queue;				/*!< pointer to a queue of real time tasks */
-// TODO: Verificar se esta queue consegue abranger corretamente a queue de tarefas aperiodicas
-struct queue *krnl_ap_queue;
+struct queue *krnl_ap_queue;				/*!< pointer to a queue of aperiodic tasks */
 struct queue *krnl_event_queue;				/*!< pointer to a queue of tasks waiting for an event */
 uint8_t krnl_heap[HEAP_SIZE];				/*!< contiguous heap memory area to be used as a memory pool. the memory allocator (malloc() and free()) controls this data structure */
 uint32_t krnl_free;					/*!< amount of free heap memory, in bytes */

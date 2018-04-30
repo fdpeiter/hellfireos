@@ -82,7 +82,8 @@ static void ap_queue_next()
  * The job of the dispatcher is simple: save the current task context on the TCB,
  * update its state to ready and check its stack for overflow. If there are
  * tasks to be scheduled, process the delay queue and invoke the real-time scheduler callback.
- * If no RT tasks are ready to be scheduled, invoke the best effort scheduler callback.
+ * If no RT tasks are ready to be scheduled, invoke the best effort scheduler callback, if no
+ * BE tasks are ready to be scheduled, invoke the aperiodic scheduler callback.
  * Update the scheduled task state to running and restore the context of the task.
  * 
  * Delayed tasks are in the delay queue, and are processed in the following way:
