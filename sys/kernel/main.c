@@ -53,6 +53,7 @@ static void clear_tcb(void)
 		krnl_task->priority = 0;
 		krnl_task->priority_rem = 0;
 		krnl_task->delay = 0;
+		krnl_task->apjobs = 0;
 		krnl_task->rtjobs = 0;
 		krnl_task->bgjobs = 0;
 		krnl_task->deadline_misses = 0;
