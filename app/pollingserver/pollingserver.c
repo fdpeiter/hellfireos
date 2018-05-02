@@ -60,15 +60,14 @@ void task(void){
 // Copied and adapted from sched_lottery
 void randomAP(void)
 {
-    int32_t id;
+    int32_t id, delay = 0;
     id = hf_selfid();
-    int32_t r = 0;
     for(;;){
-        hf_spawn(task, 0, 3, 0, "random_ap_task" + r, 1024);
+        hf_spawn(task, 0, 3, 0, "random_ap_task" + delay, 1024);
         // Corrigido o erro que o r iniciava em 0
-        r = (1 + (random() % 9)) * 50;
+        delay = (1 + (random() % 9)) * 50;
         printf("\n%s (%d)[%d][%d]", hf_selfname(), id, hf_jobs(id), hf_dlm(id));
-        delay_ms(r);
+        delay_ms(delay);
     }
 }
 
