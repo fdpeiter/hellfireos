@@ -34,14 +34,14 @@ void ap_sched(void)
 
         rc = _context_save(krnl_task->task_context);
         if (rc)
-            return;
+            continue;
         aptask->state = TASK_RUNNING;
         // Copied from scheduler.c
         if (krnl_task->state == TASK_RUNNING)
             krnl_task->state = TASK_READY;
         if (krnl_task->pstack[0] != STACK_MAGIC)
             panic(PANIC_STACK_OVERFLOW);
-        _context_restore(aptask->task_context, 1);
+        _context_restore(krnl->task_context, 1);
     }
 }
 
