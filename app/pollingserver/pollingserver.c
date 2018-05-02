@@ -41,6 +41,7 @@ void ap_sched(void)
             krnl_task->state = TASK_READY;
         if (krnl_task->pstack[0] != STACK_MAGIC)
             panic(PANIC_STACK_OVERFLOW);
+        aptask.preempt_cswitch++;
         _context_restore(krnl->task_context, 1);
     }
 }
